@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Relatório Power BI - VIACAO CATEDRAL</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #FF8800 0%, #FFA040 100%);
+        }
+        body {
+            min-height: 100vh;
+            width: 100vw;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
+        .login-overlay {
+            position: fixed;
+            z-index: 9999;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.7);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .login-box {
+            background: #fff;
+            padding: 36px 32px;
+            border-radius: 12px;
+            box-shadow: 0 6px 32px #0004;
+            text-align: center;
+            min-width: 320px;
+        }
+        .login-box h2 { margin-bottom: 18px; color: #ff8800; }
+        .login-box input[type="text"],
+        .login-box input[type="password"] {
+            width: 85%; padding: 10px; margin: 10px 0;
+            border: 1px solid #aaa; border-radius: 6px;
+            font-size: 1rem;
+        }
+        .login-box button {
+            margin-top: 16px;
+            background: #ff8800; color: #fff;
+            border: none; border-radius: 6px;
+            padding: 10px 28px; font-size: 1rem;
+            cursor: pointer; font-weight: bold;
+            box-shadow: 0 2px 8px #ff880066;
+            transition: background 0.2s;
+        }
+        .login-box button:hover { background: #cc7000; }
+        .login-error { color: #c00; font-size: 0.95em; margin-top: 6px; }
+        .powerbi-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            width: 100vw;
+            padding: 0;
+            margin: 0;
+        }
+        .powerbi-section iframe {
+            width: 100vw;
+            height: 100vh;
+            min-height: 600px;
+            min-width: 320px;
+            border: none;
+            box-shadow: 0 2px 16px #0003;
+            border-radius: 0;
+            background: transparent;
+            display: block;
+        }
+        @media (max-width: 900px) {
+            .powerbi-section iframe {
+                height: 70vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-overlay" id="loginOverlay">
+        <form class="login-box" id="loginForm" onsubmit="return handleLogin(event)">
+            <h2>FAÇA SEU LOGIN</h2>
+            <div>
+                <input type="text" id="user" placeholder="Usuário" autocomplete="username" required>
+            </div>
+            <div>
+                <input type="password" id="pass" placeholder="Senha" autocomplete="current-password" required>
+            </div>
+            <button type="submit">Entrar</button>
+            <div class="login-error" id="loginError" style="display:none;">Usuário ou senha incorretos.</div>
+        </form>
+    </div>
+    <div class="powerbi-section" id="powerbiSection" style="display:none;">
+        <iframe src="https://app.powerbi.com/view?r=eyJrIjoiMWQ5OGZmODgtN2IxZC00MTRiLWIyNzMtNWIzOTdmY2MwZGMxIiwidCI6IjQwY2I4YTA3LTBjZmEtNDc1Yy05NDNiLTlhYmQyYTQyZDBjYiJ9" allowfullscreen="true"></iframe>
+    </div>
+    <script>
+        // Usuário e senha padrão (edite aqui!)
+        const USER = "BI";
+        const PASS = "Kan@#$123";
+        function handleLogin(event) {
+            event.preventDefault();
+            const u = document.getElementById('user').value;
+            const p = document.getElementById('pass').value;
+            if (u === USER && p === PASS) {
+                document.getElementById('loginOverlay').style.display = "none";
+                document.getElementById('powerbiSection').style.display = "flex";
+            } else {
+                document.getElementById('loginError').style.display = "block";
+            }
+            return false;
+        }
+    </script>
+</body>
+</html>
